@@ -190,7 +190,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
             if ( waitForInput ) {
                 waitInputIndicator.gameObject.SetActive(true);
-                while ( !anyKeyDown ) {
+                while ( !Input.anyKeyDown ) {
                     yield return null;
                 }
                 waitInputIndicator.gameObject.SetActive(false);
@@ -211,7 +211,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         }
 
         IEnumerator CheckInput(System.Action Do) {
-            while ( !anyKeyDown ) {
+            while ( !Input.anyKeyDown ) {
                 yield return null;
             }
             Do();
