@@ -36,7 +36,7 @@ public class EventCenter:Singleton<EventCenter>
 {
     private EventCenter() { }//·ÀÖ¹±»ÊµÀý»¯
 
-    private Dictionary<string, IEventInfo> eventDic = new Dictionary<string, IEventInfo>();
+    private static Dictionary<string, IEventInfo> eventDic = new Dictionary<string, IEventInfo>();
 
     
     /// <summary>

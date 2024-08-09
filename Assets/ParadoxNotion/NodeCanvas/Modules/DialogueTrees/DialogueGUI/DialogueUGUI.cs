@@ -29,20 +29,13 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         [Header("Subtitles")]
         public RectTransform subtitlesGroup;
         public Text actorSpeech;
-        public Text actorName;
-        public Image actorPortrait;
         public RectTransform waitInputIndicator;
         public SubtitleDelays subtitleDelays = new SubtitleDelays();
         public List<AudioClip> typingSounds;
         private AudioSource playSource;
 
         //Group...
-        [Header("Multiple Choice")]
-        public RectTransform optionsGroup;
-        public Button optionButton;
-        private Dictionary<Button, int> cachedButtons;
-        private Vector2 originalSubsPosition;
-        private bool isWaitingChoice;
+
 
         private AudioSource _localSource;
         private AudioSource localSource {
@@ -64,7 +57,6 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             DialogueTree.OnDialoguePaused += OnDialoguePaused;
             DialogueTree.OnDialogueFinished += OnDialogueFinished;
             DialogueTree.OnSubtitlesRequest += OnSubtitlesRequest;
-            DialogueTree.OnMultipleChoiceRequest += OnMultipleChoiceRequest;
         }
 
         void UnSubscribe() {
@@ -72,15 +64,11 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             DialogueTree.OnDialoguePaused -= OnDialoguePaused;
             DialogueTree.OnDialogueFinished -= OnDialogueFinished;
             DialogueTree.OnSubtitlesRequest -= OnSubtitlesRequest;
-            DialogueTree.OnMultipleChoiceRequest -= OnMultipleChoiceRequest;
         }
 
         void Hide() {
             subtitlesGroup.gameObject.SetActive(false);
-            optionsGroup.gameObject.SetActive(false);
-            optionButton.gameObject.SetActive(false);
             waitInputIndicator.gameObject.SetActive(false);
-            originalSubsPosition = subtitlesGroup.transform.position;
         }
 
         void OnDialogueStarted(DialogueTree dlg) {
@@ -89,22 +77,15 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
         void OnDialoguePaused(DialogueTree dlg) {
             subtitlesGroup.gameObject.SetActive(false);
-            optionsGroup.gameObject.SetActive(false);
+
             StopAllCoroutines();
             if ( playSource != null ) playSource.Stop();
         }
 
         void OnDialogueFinished(DialogueTree dlg) {
             subtitlesGroup.gameObject.SetActive(false);
-            optionsGroup.gameObject.SetActive(false);
-            if ( cachedButtons != null ) {
-                foreach ( var tempBtn in cachedButtons.Keys ) {
-                    if ( tempBtn != null ) {
-                        Destroy(tempBtn.gameObject);
-                    }
-                }
-                cachedButtons = null;
-            }
+
+
             StopAllCoroutines();
             if ( playSource != null ) playSource.Stop();
         }
@@ -122,14 +103,11 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             var actor = info.actor;
 
             subtitlesGroup.gameObject.SetActive(true);
-            subtitlesGroup.position = originalSubsPosition;
             actorSpeech.text = "";
 
-            actorName.text = actor.name;
             actorSpeech.color = actor.dialogueColor;
 
-            actorPortrait.gameObject.SetActive(actor.portraitSprite != null);
-            actorPortrait.sprite = actor.portraitSprite;
+
 
             if ( audio != null ) {
                 var actorSource = actor.transform != null ? actor.transform.GetComponent<AudioSource>() : null;
@@ -227,69 +205,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
         ///----------------------------------------------------------------------------------------------
 
-        void OnMultipleChoiceRequest(MultipleChoiceRequestInfo info) {
+       
 
-            optionsGroup.gameObject.SetActive(true);
-            var buttonHeight = optionButton.GetComponent<RectTransform>().rect.height;
-            optionsGroup.sizeDelta = new Vector2(optionsGroup.sizeDelta.x, ( info.options.Values.Count * buttonHeight ) + 20);
-
-            cachedButtons = new Dictionary<Button, int>();
-            int i = 0;
-
-            foreach ( KeyValuePair<IStatement, int> pair in info.options ) {
-                var btn = (Button)Instantiate(optionButton);
-                btn.gameObject.SetActive(true);
-                btn.transform.SetParent(optionsGroup.transform, false);
-                btn.transform.localPosition = (Vector3)optionButton.transform.localPosition - new Vector3(0, buttonHeight * i, 0);
-                btn.GetComponentInChildren<Text>().text = pair.Key.text;
-                cachedButtons.Add(btn, pair.Value);
-                btn.onClick.AddListener(() => { Finalize(info, cachedButtons[btn]); });
-                i++;
-            }
-
-            if ( info.showLastStatement ) {
-                subtitlesGroup.gameObject.SetActive(true);
-                var newY = optionsGroup.position.y + optionsGroup.sizeDelta.y + 1;
-                subtitlesGroup.position = new Vector3(subtitlesGroup.position.x, newY, subtitlesGroup.position.z);
-            }
-
-            if ( info.availableTime > 0 ) {
-                StartCoroutine(CountDown(info));
-            }
-        }
-
-        IEnumerator CountDown(MultipleChoiceRequestInfo info) {
-            isWaitingChoice = true;
-            var timer = 0f;
-            while ( timer < info.availableTime ) {
-                if ( isWaitingChoice == false ) {
-                    yield break;
-                }
-                timer += Time.deltaTime;
-                SetMassAlpha(optionsGroup, Mathf.Lerp(1, 0, timer / info.availableTime));
-                yield return null;
-            }
-
-            if ( isWaitingChoice ) {
-                Finalize(info, info.options.Values.Last());
-            }
-        }
-
-        void Finalize(MultipleChoiceRequestInfo info, int index) {
-            isWaitingChoice = false;
-            SetMassAlpha(optionsGroup, 1f);
-            optionsGroup.gameObject.SetActive(false);
-            subtitlesGroup.gameObject.SetActive(false);
-            foreach ( var tempBtn in cachedButtons.Keys ) {
-                Destroy(tempBtn.gameObject);
-            }
-            info.SelectOption(index);
-        }
-
-        void SetMassAlpha(RectTransform root, float alpha) {
-            foreach ( var graphic in root.GetComponentsInChildren<CanvasRenderer>() ) {
-                graphic.SetAlpha(alpha);
-            }
-        }
     }
 }

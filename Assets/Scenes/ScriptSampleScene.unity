@@ -316,13 +316,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _serializedExposedParameters: []
-  _boundGraphSerialization: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"\u5bf9\u8bdd\u6d4b\u8bd5"},"_name":"","_position":{"x":372.0,"y":48.8},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"0"},{"statement":{"_text":"\u8fd8\u6ca1\u6709\u505a\u65c1\u767d"},"_position":{"x":383.2,"y":135.2},"$type":"NodeCanvas.DialogueTrees.NarrationNode","$id":"1"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _boundGraphSerialization: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"\u5bf9\u8bdd\u6d4b\u8bd5"},"_name":"","_position":{"x":631.3333,"y":216.8},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"0"},{"statement":{"_text":"\u8fd8\u6ca1\u6709\u505a\u65c1\u767d"},"_position":{"x":617.2,"y":399.2},"$type":"NodeCanvas.DialogueTrees.NarrationNode","$id":"1"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
   _boundGraphObjectReferences: []
   _boundGraphSource:
     _version: 3.28
     _category: 
     _comments: 
-    _translation: {x: 0, y: 0}
+    _translation: {x: 50.171364, y: 2.418814}
     _zoomFactor: 1
   _firstActivation: 0
   _enableAction: 1
