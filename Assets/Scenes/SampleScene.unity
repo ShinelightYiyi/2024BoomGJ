@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _serializedExposedParameters: []
-  _boundGraphSerialization: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"\u85e4\u91ce\u8001\u5e08...\n\u4f60\u5728\u5bb6\u5417"},"_actorName":"NPCA","_actorParameterID":"16dddf3a-628a-4658-9b47-36f143c2f804","_position":{"x":505.3334,"y":136.6667},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"0"},{"statement":{"_text":"\u6c99\u6c99\u6c99\n..."},"_actorName":"NPCB","_actorParameterID":"70f39a57-33a8-4735-90b6-df52378c96fd","_position":{"x":437.9452,"y":273.9811},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"1"},{"_position":{"x":536.6667,"y":420.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"2"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[{"_keyName":"NPCA","_id":"16dddf3a-628a-4658-9b47-36f143c2f804","_actorObject":1},{"_keyName":"NPCB","_id":"d398757d-a297-43aa-8371-4b4456691380","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _boundGraphSerialization: '{"type":"NodeCanvas.DialogueTrees.DialogueTree","nodes":[{"statement":{"_text":"\u85e4\u91ce\u8001\u5e08..\n\u4f60\u5728\u5bb6\u5417"},"_actorName":"NPCA","_actorParameterID":"16dddf3a-628a-4658-9b47-36f143c2f804","_position":{"x":505.3334,"y":136.6667},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"0"},{"statement":{"_text":"\u6c99\u6c99\u6c99\n..."},"_actorName":"NPCB","_actorParameterID":"70f39a57-33a8-4735-90b6-df52378c96fd","_position":{"x":437.9452,"y":273.9811},"$type":"NodeCanvas.DialogueTrees.StatementNode","$id":"1"},{"_position":{"x":536.6667,"y":420.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"2"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"canvasGroups":[],"localBlackboard":{"_variables":{}},"derivedData":{"actorParameters":[{"_keyName":"NPCA","_id":"16dddf3a-628a-4658-9b47-36f143c2f804","_actorObject":1},{"_keyName":"NPCB","_id":"d398757d-a297-43aa-8371-4b4456691380","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
   _boundGraphObjectReferences:
   - {fileID: 0}
   - {fileID: 7489668212430862946}
@@ -628,7 +628,7 @@ MonoBehaviour:
     _version: 3.28
     _category: 
     _comments: 
-    _translation: {x: 0.05473655, y: 0.018963702}
+    _translation: {x: 335, y: 91}
     _zoomFactor: 1
   _firstActivation: 1
   _enableAction: 0
