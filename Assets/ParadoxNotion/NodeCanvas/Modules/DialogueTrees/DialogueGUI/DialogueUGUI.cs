@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
+using static NodeCanvas.DialogueTrees.DialogueTree;
 
 namespace NodeCanvas.DialogueTrees.UI.Examples
 {
@@ -21,12 +22,14 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         }
 
         //Options...
-        [Header("Input Options")]
+        [Header("输入设置")]
+        [Tooltip("输入可跳过对话")]
         public bool skipOnInput;
+        [Tooltip("等待输入进入下一句对话")]
         public bool waitForInput;
 
         //Group...
-        [Header("Subtitles")]
+        [Header("对话框组件")]
         public RectTransform subtitlesGroup;
         public Text actorSpeech;
         public RectTransform waitInputIndicator;
@@ -34,8 +37,9 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         public List<AudioClip> typingSounds;
         private AudioSource playSource;
 
-        //Group...
 
+        [Header("角色")]
+        [SerializeField] public List<ActorParameter> actorParameters = new List<ActorParameter>();
 
         private AudioSource _localSource;
         private AudioSource localSource {
@@ -48,9 +52,29 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
         void LateUpdate() => anyKeyDown = false;
 
 
-        void Awake() { Subscribe(); Hide(); }
+        void Awake() 
+        {
+            if (BindCheck())
+            {
+                Subscribe();
+                Hide();
+            }
+        }
         void OnEnable() { UnSubscribe(); Subscribe(); }
         void OnDisable() { UnSubscribe(); }
+
+        /// <summary>
+        /// 绑定检查
+        /// </summary>
+        bool BindCheck()
+        {
+            if (!subtitlesGroup||!actorSpeech)
+            {
+                Debug.LogError($"{this.gameObject.name}对话框，文本未绑定或丢失");
+                return false;
+            }
+            return true;    
+        } 
 
         void Subscribe() {
             DialogueTree.OnDialogueStarted += OnDialogueStarted;
@@ -68,7 +92,8 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
         void Hide() {
             subtitlesGroup.gameObject.SetActive(false);
-            waitInputIndicator.gameObject.SetActive(false);
+            if(waitInputIndicator!=null)
+                waitInputIndicator.gameObject.SetActive(false);
         }
 
         void OnDialogueStarted(DialogueTree dlg) {
@@ -92,15 +117,26 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
 
         ///----------------------------------------------------------------------------------------------
 
+        /*
         void OnSubtitlesRequest(SubtitlesRequestInfo info) {
             StartCoroutine(Internal_OnSubtitlesRequestInfo(info));
-        }
+        }*/
 
+        void OnSubtitlesRequest(SubtitlesRequestInfo info)
+        {
+            // 仅处理特定角色的对话
+            if (actorParameters.Any(actorParam => actorParam.actor == info.actor))
+            {
+                StartCoroutine(Internal_OnSubtitlesRequestInfo(info));
+            }
+        }
         IEnumerator Internal_OnSubtitlesRequestInfo(SubtitlesRequestInfo info) {
 
             var text = info.statement.text;
             var audio = info.statement.audio;
             var actor = info.actor;
+
+            subtitlesGroup.transform.localPosition = actor.dialoguePosition;
 
             subtitlesGroup.gameObject.SetActive(true);
             actorSpeech.text = "";
@@ -166,7 +202,7 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
                 }
             }
 
-            if ( waitForInput ) {
+            if ( waitForInput && waitInputIndicator!=null) {
                 waitInputIndicator.gameObject.SetActive(true);
                 while ( !Input.anyKeyDown ) {
                     yield return null;

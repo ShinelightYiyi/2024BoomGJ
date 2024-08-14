@@ -18,7 +18,7 @@ namespace NodeCanvas.DialogueTrees
         new public string name => _name;
         public Texture2D portrait => _portrait;
         public Color dialogueColor => _dialogueColor;
-        public Vector3 dialoguePosition => Vector3.zero;
+        public Vector3 dialoguePosition => _dialogueOffset;
         public Transform transform => null;
         public Sprite portraitSprite {
             get

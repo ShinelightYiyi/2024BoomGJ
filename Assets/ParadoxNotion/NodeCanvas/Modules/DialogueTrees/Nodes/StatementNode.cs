@@ -12,7 +12,7 @@ namespace NodeCanvas.DialogueTrees
     public class StatementNode : DTNode
     {
         [SerializeField]
-        public Statement statement = new Statement("This is a dialogue text");
+        public Statement statement = new Statement("对话");
 
         public override bool requireActorSelection { get { return true; } }
 

@@ -14,7 +14,7 @@ public class ExampleScript : MonoBehaviour
         //对话树
         dialogueTreeController.StartDialogue();
         //设置系统
-        new Commands.Settings.SetResolutionCommand(50).Execute();
+        new Commands.Settings.SetBGMVolumeCommand(50).Execute();
     }
     
     void SendMsg()
