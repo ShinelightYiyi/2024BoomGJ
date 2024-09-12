@@ -76,7 +76,7 @@ namespace NodeCanvas.DialogueTrees
 
             if ( saySelection ) {
                 var tempStatement = availableChoices[index].statement.BlackboardReplace(graphBlackboard);
-                var speechInfo = new SubtitlesRequestInfo(finalActor, tempStatement, Finalize);
+                var speechInfo = new SubtitlesRequestInfo(finalActor, tempStatement,default,Finalize);
                 DialogueTree.RequestSubtitles(speechInfo);
             } else {
                 Finalize();

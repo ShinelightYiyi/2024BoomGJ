@@ -17,9 +17,12 @@ namespace NodeCanvas.DialogueTrees
         ///<summary>Call this to Continue the DialogueTree</summary>
         public Action Continue;
 
-        public SubtitlesRequestInfo(IDialogueActor actor, IStatement statement, Action callback) {
+        public UnityEngine.Vector2 position;
+
+        public SubtitlesRequestInfo(IDialogueActor actor, IStatement statement,UnityEngine.Vector2 position=default(UnityEngine.Vector2), Action callback=null) {
             this.actor = actor;
             this.statement = statement;
+            this.position = position;
             this.Continue = callback;
         }
     }

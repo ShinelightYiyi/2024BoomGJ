@@ -55,7 +55,7 @@ namespace NodeCanvas.Tasks.Actions
             }
             if ( verboseMode == VerboseMode.LogAndDisplayLabel || verboseMode == VerboseMode.DisplayLabelOnly ) {
                 if ( secondsToRun > 0 ) {
-                    MonoManager.current.onGUI += OnGUI;
+                    ParadoxNotion.Services.MonoManager.current.onGUI += OnGUI;
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace NodeCanvas.Tasks.Actions
         protected override void OnStop() {
             if ( verboseMode == VerboseMode.LogAndDisplayLabel || verboseMode == VerboseMode.DisplayLabelOnly ) {
                 if ( secondsToRun > 0 ) {
-                    MonoManager.current.onGUI -= OnGUI;
+                    ParadoxNotion.Services.MonoManager.current.onGUI -= OnGUI;
                 }
             }
         }

@@ -1,6 +1,7 @@
 using NodeCanvas.DialogueTrees;
 using System.Collections;
 using System.Collections.Generic;
+using Framework;
 using UnityEngine;
 
 public class ExampleScript : MonoBehaviour
@@ -21,6 +22,7 @@ public class ExampleScript : MonoBehaviour
     {
         //MonoÍÐ¹Ü
         MonoManager.Instance.StartCoroutine(Msg());
+        
     }
     IEnumerator Msg()
     {

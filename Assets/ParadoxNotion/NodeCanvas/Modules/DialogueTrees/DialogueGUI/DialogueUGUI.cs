@@ -136,7 +136,9 @@ namespace NodeCanvas.DialogueTrees.UI.Examples
             var audio = info.statement.audio;
             var actor = info.actor;
 
-            subtitlesGroup.transform.localPosition = actor.dialoguePosition;
+            var pos = new Vector3(info.position.x, info.position.y, 0);
+
+            subtitlesGroup.transform.localPosition = actor.dialoguePosition+pos;
 
             subtitlesGroup.gameObject.SetActive(true);
             actorSpeech.text = "";

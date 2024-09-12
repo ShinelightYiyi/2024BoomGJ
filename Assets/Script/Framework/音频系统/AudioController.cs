@@ -14,21 +14,47 @@ public class AudioController : SingletonMono<AudioController>
     /// <summary>
     /// 播放BGM
     /// </summary>
-    /// <param name="path">文件路径</param>
+    /// <param name="input">输入（可为路径字符串或audioclip）</param>
     /// <param name="loop">是否循环播放</param>
-    public void PlayBGM(string path, bool loop = true)
+    public void PlayBGM(object input, bool loop = true)
     {
-        AudioClip clip = AudioManager.Instance.GetAudioClip(path);
-        if (clip != null)
+        AudioClip clip = null;
+
+        // 判断输入类型是字符串（路径）还是 AudioClip
+        if (input is string path)
         {
-            bgmSource.clip = clip;
-            bgmSource.loop = loop;
-            bgmSource.Play();
+            // 从路径获取音频剪辑
+            clip = AudioManager.Instance.GetAudioClip(path);
+            if (clip == null)
+            {
+                Debug.LogWarning($"路径 '{path}' 对应的 BGM 未找到");
+                return;
+            }
         }
         else
         {
-            Debug.LogWarning($" {path} BGM未找到");
+            // 尝试将输入转换为 AudioClip
+            clip = input as AudioClip;
+
+            // 检查转换结果
+            if (clip == null)
+            {
+                Debug.LogWarning($"输入类型错误，必须是路径字符串或 AudioClip。当前输入类型：{input?.GetType().FullName}");
+                return;
+            }
         }
+
+        // 检查音频源是否已初始化
+        if (bgmSource == null)
+        {
+            Debug.LogError("bgmSource 未初始化，无法播放音频。请检查音频源的设置。");
+            return;
+        }
+
+        // 播放背景音乐
+        bgmSource.clip = clip;
+        bgmSource.loop = loop;
+        bgmSource.Play();
     }
 
     /// <summary>
@@ -57,18 +83,44 @@ public class AudioController : SingletonMono<AudioController>
     /// <summary>
     /// 播放音效
     /// </summary>
-    /// <param name="path">文件路径</param>
-    public void PlaySFX(string path)
+    /// <param name="input">输入（可为路径字符串或audioclip）</param>
+    public void PlaySFX(object input)
     {
-        AudioClip clip = AudioManager.Instance.GetAudioClip(path);
-        if (clip != null)
+        AudioClip clip = null;
+
+        // 判断输入类型是字符串（路径）还是 AudioClip
+        if (input is string path)
         {
-            sfxSource.PlayOneShot(clip);
+            // 从路径获取音频剪辑
+            clip = AudioManager.Instance.GetAudioClip(path);
+            if (clip == null)
+            {
+                Debug.LogWarning($"{path} 音效未找到");
+                return;
+            }
         }
         else
         {
-            Debug.LogWarning($"{path} 音效未找到");
+            // 尝试将输入转换为 AudioClip
+            clip = input as AudioClip;
+
+            // 检查转换结果
+            if (clip == null)
+            {
+                Debug.LogWarning($"输入类型错误，必须是路径字符串或 AudioClip。当前输入类型：{input?.GetType().FullName}");
+                return;
+            }
         }
+
+        // 检查音频源是否已初始化
+        if (sfxSource == null)
+        {
+            Debug.LogError("sfxSource 未初始化，无法播放音效。请检查音频源的设置。");
+            return;
+        }
+
+        // 播放音效
+        sfxSource.PlayOneShot(clip);
     }
 
     /// <summary>

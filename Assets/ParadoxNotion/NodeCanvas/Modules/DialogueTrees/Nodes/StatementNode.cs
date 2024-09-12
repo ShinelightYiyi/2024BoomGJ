@@ -13,12 +13,13 @@ namespace NodeCanvas.DialogueTrees
     {
         [SerializeField]
         public Statement statement = new Statement("对话");
+        public Vector2 offset = Vector2.zero;
 
         public override bool requireActorSelection { get { return true; } }
 
         protected override Status OnExecute(Component agent, IBlackboard bb) {
             var tempStatement = statement.BlackboardReplace(bb);
-            DialogueTree.RequestSubtitles(new SubtitlesRequestInfo(finalActor, tempStatement, OnStatementFinish));
+            DialogueTree.RequestSubtitles(new SubtitlesRequestInfo(finalActor, tempStatement,offset, OnStatementFinish));
             return Status.Running;
         }
 

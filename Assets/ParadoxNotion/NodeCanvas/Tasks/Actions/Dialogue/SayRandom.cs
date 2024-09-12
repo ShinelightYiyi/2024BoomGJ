@@ -19,7 +19,7 @@ namespace NodeCanvas.Tasks.Actions
             var index = Random.Range(0, statements.Count);
             var statement = statements[index];
             var tempStatement = statement.BlackboardReplace(blackboard);
-            var info = new SubtitlesRequestInfo(agent, tempStatement, EndAction);
+            var info = new SubtitlesRequestInfo(agent, tempStatement,default, EndAction);
             DialogueTree.RequestSubtitles(info);
         }
 

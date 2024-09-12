@@ -20,7 +20,7 @@ namespace NodeCanvas.Tasks.Actions
 
         protected override void OnExecute() {
             var tempStatement = statement.BlackboardReplace(blackboard);
-            DialogueTree.RequestSubtitles(new SubtitlesRequestInfo(agent, tempStatement, EndAction));
+            DialogueTree.RequestSubtitles(new SubtitlesRequestInfo(agent, tempStatement, default, EndAction));
         }
     }
 }
