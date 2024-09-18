@@ -1,6 +1,12 @@
 using UnityEngine;
 using System;
 
+
+
+/// <summary>
+/// 懒加载单例（只有在第一次调用的时候才会实例化）
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;

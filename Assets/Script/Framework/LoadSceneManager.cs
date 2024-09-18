@@ -7,7 +7,7 @@ using Framework;
 
 public class LoadSceneManager : Singleton<LoadSceneManager>
 {
-    
+    private LoadSceneManager() { }
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
